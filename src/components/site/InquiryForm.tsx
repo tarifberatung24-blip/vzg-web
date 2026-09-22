@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -213,7 +214,7 @@ function Field({
   label: string;
   error?: string;
   required?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="space-y-2">

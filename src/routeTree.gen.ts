@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AgbRouteImport } from './routes/agb'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as HorizonRouteImport } from './routes/horizon'
+import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as ProjectIntelligenceRouteImport } from './routes/project-intelligence'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -26,9 +30,29 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgbRoute = AgbRouteImport.update({
+  id: '/agb',
+  path: '/agb',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HorizonRoute = HorizonRouteImport.update({
   id: '/horizon',
   path: '/horizon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectIntelligenceRoute = ProjectIntelligenceRouteImport.update({
@@ -50,7 +74,11 @@ const ServicesRoute = ServicesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/agb': typeof AgbRoute
+  '/contact': typeof ContactRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
+  '/impressum': typeof ImpressumRoute
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
@@ -58,7 +86,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/agb': typeof AgbRoute
+  '/contact': typeof ContactRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
+  '/impressum': typeof ImpressumRoute
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
@@ -67,7 +99,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/agb': typeof AgbRoute
+  '/contact': typeof ContactRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
+  '/impressum': typeof ImpressumRoute
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
@@ -77,7 +113,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/agb'
+    | '/contact'
+    | '/datenschutz'
     | '/horizon'
+    | '/impressum'
     | '/project-intelligence'
     | '/projects'
     | '/services'
@@ -85,7 +125,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/agb'
+    | '/contact'
+    | '/datenschutz'
     | '/horizon'
+    | '/impressum'
     | '/project-intelligence'
     | '/projects'
     | '/services'
@@ -93,7 +137,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/agb'
+    | '/contact'
+    | '/datenschutz'
     | '/horizon'
+    | '/impressum'
     | '/project-intelligence'
     | '/projects'
     | '/services'
@@ -102,7 +150,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AgbRoute: typeof AgbRoute
+  ContactRoute: typeof ContactRoute
+  DatenschutzRoute: typeof DatenschutzRoute
   HorizonRoute: typeof HorizonRoute
+  ImpressumRoute: typeof ImpressumRoute
   ProjectIntelligenceRoute: typeof ProjectIntelligenceRoute
   ProjectsRoute: typeof ProjectsRoute
   ServicesRoute: typeof ServicesRoute
@@ -124,11 +176,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agb': {
+      id: '/agb'
+      path: '/agb'
+      fullPath: '/agb'
+      preLoaderRoute: typeof AgbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/horizon': {
       id: '/horizon'
       path: '/horizon'
       fullPath: '/horizon'
       preLoaderRoute: typeof HorizonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/project-intelligence': {
@@ -158,7 +238,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AgbRoute: AgbRoute,
+  ContactRoute: ContactRoute,
+  DatenschutzRoute: DatenschutzRoute,
   HorizonRoute: HorizonRoute,
+  ImpressumRoute: ImpressumRoute,
   ProjectIntelligenceRoute: ProjectIntelligenceRoute,
   ProjectsRoute: ProjectsRoute,
   ServicesRoute: ServicesRoute,
