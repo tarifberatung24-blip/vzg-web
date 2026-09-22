@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check, Paperclip } from "lucide-react";
 import { toast } from "sonner";
@@ -20,10 +20,14 @@ import {
 import { budgets, inquirySchema, projectTypes, timeframes, type InquiryInput } from "@/lib/inquiry.schema";
 import { submitInquiry } from "@/lib/inquiry.functions";
 
-export function InquiryForm({ defaultProjectType }: { defaultProjectType?: InquiryInput["projectType"] }) {
+export function InquiryForm({
+  defaultProjectType,
+}: {
+  defaultProjectType?: InquiryInput["projectType"] | undefined;
+}) {
   const send = useServerFn(submitInquiry);
   const form = useForm<InquiryInput>({
-    resolver: zodResolver(inquirySchema),
+    resolver: zodResolver(inquirySchema) as Resolver<InquiryInput>,
     defaultValues: {
       name: "",
       email: "",
@@ -31,11 +35,10 @@ export function InquiryForm({ defaultProjectType }: { defaultProjectType?: Inqui
       website: "",
       country: "Deutschland",
       phone: "",
-      projectType: defaultProjectType,
+      ...(defaultProjectType ? { projectType: defaultProjectType } : {}),
       problem: "",
       desiredResult: "",
       tools: "",
-      consent: undefined as unknown as true,
     },
   });
 
@@ -212,8 +215,8 @@ function Field({
   children,
 }: {
   label: string;
-  error?: string;
-  required?: boolean;
+  error?: string | undefined;
+  required?: boolean | undefined;
   children: ReactNode;
 }) {
   return (
