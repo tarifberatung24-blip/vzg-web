@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Container,
@@ -257,7 +258,7 @@ function HorizonPage() {
   );
 }
 
-function Chapter({ id, n, title, children }: { id: string; n: string; title: string; children: React.ReactNode }) {
+function Chapter({ id, n, title, children }: { id: string; n: string; title: string; children: ReactNode }) {
   return (
     <section id={id} className="scroll-mt-24">
       <Kicker n={n} label="Kapitel" />

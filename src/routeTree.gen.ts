@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HorizonRouteImport } from './routes/horizon'
+import { Route as ProjectIntelligenceRouteImport } from './routes/project-intelligence'
+import { Route as ServicesRouteImport } from './routes/services'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HorizonRoute = HorizonRouteImport.update({
+  id: '/horizon',
+  path: '/horizon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectIntelligenceRoute = ProjectIntelligenceRouteImport.update({
+  id: '/project-intelligence',
+  path: '/project-intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/horizon': typeof HorizonRoute
+  '/project-intelligence': typeof ProjectIntelligenceRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/horizon': typeof HorizonRoute
+  '/project-intelligence': typeof ProjectIntelligenceRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/horizon': typeof HorizonRoute
+  '/project-intelligence': typeof ProjectIntelligenceRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/horizon' | '/project-intelligence' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/horizon' | '/project-intelligence' | '/services'
+  id: '__root__' | '/' | '/horizon' | '/project-intelligence' | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HorizonRoute: typeof HorizonRoute
+  ProjectIntelligenceRoute: typeof ProjectIntelligenceRoute
+  ServicesRoute: typeof ServicesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/horizon': {
+      id: '/horizon'
+      path: '/horizon'
+      fullPath: '/horizon'
+      preLoaderRoute: typeof HorizonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/project-intelligence': {
+      id: '/project-intelligence'
+      path: '/project-intelligence'
+      fullPath: '/project-intelligence'
+      preLoaderRoute: typeof ProjectIntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HorizonRoute: HorizonRoute,
+  ProjectIntelligenceRoute: ProjectIntelligenceRoute,
+  ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
