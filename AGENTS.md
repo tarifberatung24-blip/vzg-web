@@ -53,3 +53,21 @@ Read, in order:
 Do not start implementation work before confirming the RLS policies on `profiles` and
 `analyses` inside the Supabase dashboard; several high-severity findings cannot be closed
 from code alone.
+
+## Task status
+
+- TASK-000 (audit + architecture lock) — **done**, see the five docs above.
+- TASK-001 (Guest Preview) — **implemented** on `feature/project-int-guest-preview`. Read
+  `docs/GUEST_PREVIEW.md` before changing anything under `src/lib/preview/`.
+
+TASK-001 rules that must not be broken:
+
+- The guest path must never reference the credit or billing domain. `src/lib/preview.boundaries.test.ts`
+  enforces this structurally and will fail if a reference is added.
+- No `.server` module may be imported statically from a route file or `*.functions.ts`.
+  `preview.functions.ts` uses dynamic imports inside handlers only.
+- `supabase/migrations/20260923100000_guest_preview.sql` is written but **not applied**.
+  Until it is, guest quota enforcement runs on the weaker `process_local` tier.
+- After changing client-reachable imports, re-check the built bundle for server-only
+  strings (see "Build-output verification" in `docs/GUEST_PREVIEW.md`).
+
