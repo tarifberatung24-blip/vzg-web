@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Container, Eyebrow } from "@/components/site/primitives";
+import { Container, Eyebrow, PilotBadge } from "@/components/site/primitives";
 import { supabase } from "@/integrations/supabase/client";
 import { signInSchema, signUpSchema, type SignInInput, type SignUpInput } from "@/lib/account.schema";
 import { pageHead } from "@/lib/seo";
@@ -38,7 +38,8 @@ function AuthPage() {
     <section className="border-b border-border">
       <Container className="grid max-w-3xl gap-10 py-20 md:py-28">
         <div>
-          <Eyebrow>Geschäftskonto</Eyebrow>
+          <PilotBadge />
+          <Eyebrow className="mt-6">Geschäftskonto</Eyebrow>
           <h1 className="display mt-6 text-4xl md:text-5xl">
             {mode === "signup" ? "Konto anlegen." : "Anmelden."}
           </h1>

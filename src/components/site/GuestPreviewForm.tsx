@@ -142,7 +142,7 @@ export function GuestPreviewForm({
         <Button
           type="submit"
           size="xl"
-          variant="accent"
+          variant="default"
           disabled={disabled || mutation.isPending}
           className="shrink-0"
         >

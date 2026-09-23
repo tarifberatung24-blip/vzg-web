@@ -6,8 +6,11 @@
 
 /*
  * VZG CONSULT design system
- * Dark graphite, off-white, neutral gray, one restrained brass accent.
+ * Deep navy/indigo surfaces, soft off-white text, indigo accent.
  * Typography: Geist (sans) + Geist Mono (technical labels).
+ *
+ * The palette is defined once here and consumed through semantic tokens, so a
+ * colour change stays a token change rather than a sweep through components.
  */
 
 @theme inline {
@@ -58,7 +61,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --shadow-raised: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 20px 50px -20px oklch(0 0 0 / 60%);
+  --shadow-raised: 0 1px 0 0 oklch(1 0 0 / 5%) inset, 0 12px 32px -18px oklch(0.1 0.03 265 / 70%);
   --animate-drift: drift 14s linear infinite;
   --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
 
@@ -82,50 +85,53 @@
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0.375rem;
 
-  --background: oklch(0.145 0.004 260);
-  --foreground: oklch(0.955 0.004 85);
-  --surface: oklch(0.175 0.004 260);
-  --surface-raised: oklch(0.205 0.004 260);
-  --card: oklch(0.175 0.004 260);
-  --card-foreground: oklch(0.955 0.004 85);
-  --popover: oklch(0.205 0.004 260);
-  --popover-foreground: oklch(0.955 0.004 85);
+  /* Deep navy base — deliberately blue-shifted so it reads as navy, not black. */
+  --background: oklch(0.21 0.038 265);
+  --foreground: oklch(0.96 0.008 260);
+  --surface: oklch(0.245 0.038 265);
+  --surface-raised: oklch(0.285 0.04 265);
+  --card: oklch(0.245 0.038 265);
+  --card-foreground: oklch(0.96 0.008 260);
+  --popover: oklch(0.285 0.04 265);
+  --popover-foreground: oklch(0.96 0.008 260);
 
-  --primary: oklch(0.955 0.004 85);
-  --primary-foreground: oklch(0.145 0.004 260);
-  --secondary: oklch(0.235 0.004 260);
-  --secondary-foreground: oklch(0.955 0.004 85);
-  --muted: oklch(0.235 0.004 260);
-  --muted-foreground: oklch(0.66 0.006 260);
+  /* Indigo drives every primary action and focus state. */
+  --primary: oklch(0.6 0.17 274);
+  --primary-foreground: oklch(0.98 0.005 260);
+  --secondary: oklch(0.31 0.04 265);
+  --secondary-foreground: oklch(0.96 0.008 260);
+  --muted: oklch(0.31 0.04 265);
+  --muted-foreground: oklch(0.73 0.02 265);
 
+  /* Brass stays the VZG signature, used for small technical marks only. */
   --accent: oklch(0.8 0.1 78);
-  --accent-foreground: oklch(0.145 0.004 260);
+  --accent-foreground: oklch(0.21 0.038 265);
 
-  --destructive: oklch(0.6 0.2 25);
+  --destructive: oklch(0.62 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(1 0 0 / 9%);
-  --border-strong: oklch(1 0 0 / 18%);
-  --line: oklch(1 0 0 / 6%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.8 0.1 78);
+  --border: oklch(1 0 0 / 10%);
+  --border-strong: oklch(1 0 0 / 20%);
+  --line: oklch(1 0 0 / 7%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.62 0.17 274);
 
-  --chart-1: oklch(0.8 0.1 78);
-  --chart-2: oklch(0.7 0.02 260);
-  --chart-3: oklch(0.55 0.02 260);
-  --chart-4: oklch(0.42 0.02 260);
-  --chart-5: oklch(0.32 0.02 260);
+  --chart-1: oklch(0.62 0.17 274);
+  --chart-2: oklch(0.8 0.1 78);
+  --chart-3: oklch(0.68 0.09 250);
+  --chart-4: oklch(0.55 0.04 265);
+  --chart-5: oklch(0.4 0.04 265);
 
-  --sidebar: oklch(0.175 0.004 260);
-  --sidebar-foreground: oklch(0.955 0.004 85);
-  --sidebar-primary: oklch(0.8 0.1 78);
-  --sidebar-primary-foreground: oklch(0.145 0.004 260);
-  --sidebar-accent: oklch(0.235 0.004 260);
-  --sidebar-accent-foreground: oklch(0.955 0.004 85);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.8 0.1 78);
+  --sidebar: oklch(0.245 0.038 265);
+  --sidebar-foreground: oklch(0.96 0.008 260);
+  --sidebar-primary: oklch(0.6 0.17 274);
+  --sidebar-primary-foreground: oklch(0.98 0.005 260);
+  --sidebar-accent: oklch(0.31 0.04 265);
+  --sidebar-accent-foreground: oklch(0.96 0.008 260);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.62 0.17 274);
 }
 
 @layer base {
@@ -167,10 +173,25 @@
 /* Mono eyebrow label */
 @utility eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-muted-foreground);
+}
+
+/* Soft indigo glow used behind hero sections */
+@utility bg-aurora {
+  background-image:
+    radial-gradient(
+      ellipse 80% 55% at 50% -10%,
+      color-mix(in oklab, var(--color-primary) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 85% 5%,
+      color-mix(in oklab, var(--color-accent) 7%, transparent),
+      transparent 60%
+    );
 }
 
 /* Display headline */
@@ -191,8 +212,14 @@
 
 /* Raised panel */
 @utility panel {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-surface-raised) 60%, transparent),
+    var(--color-surface)
+  );
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-raised);
 }
 

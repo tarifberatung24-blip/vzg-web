@@ -71,3 +71,16 @@ TASK-001 rules that must not be broken:
 - After changing client-reachable imports, re-check the built bundle for server-only
   strings (see "Build-output verification" in `docs/GUEST_PREVIEW.md`).
 
+## Pilot visual refresh
+
+`feature/pilot-visual-refresh` restyles the public site for the free pilot launch. It changes
+presentation only — no product logic, no backend, no new dependencies.
+
+- The palette lives entirely in the semantic tokens in `src/styles.css`. Restyle by editing
+  tokens, not by hardcoding colours into components; the previous sweep left almost no
+  literal colours for exactly this reason.
+- Pilot messaging is one component, `PilotBadge` in `src/components/site/primitives.tsx`.
+  Copy it rather than re-declaring the badge markup.
+- Pilot wording stays factual. Do not add profit, guarantee, or outcome claims — the
+  Project Intelligence boundaries forbid them and the preview is not a full analysis.
+

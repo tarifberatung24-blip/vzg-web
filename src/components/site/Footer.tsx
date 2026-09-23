@@ -68,7 +68,7 @@ export function Footer() {
       <div className="border-t border-border">
         <Container className="flex flex-col gap-2 py-6 font-mono text-[0.65rem] tracking-widest text-muted-foreground uppercase md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} VZG CONSULT · Vilislav Gitsov</span>
-          <span>AI Systems · Automation · Digital Products</span>
+          <span>Kostenlose Pilotversion · Pilotzugang auf Anfrage</span>
         </Container>
       </div>
     </footer>

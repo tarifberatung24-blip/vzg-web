@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Container, Eyebrow, Panel } from "@/components/site/primitives";
+import { Container, Eyebrow, Panel, PilotBadge } from "@/components/site/primitives";
 import { supabase } from "@/integrations/supabase/client";
 import { createAnalysis, getAccountOverview } from "@/lib/account.functions";
 import { analysisSchema, formatEuro, type AnalysisInput } from "@/lib/account.schema";
@@ -75,6 +75,7 @@ function AccountPage() {
       <section className="border-b border-border">
         <Container className="flex flex-col gap-6 py-14 md:flex-row md:items-end md:justify-between md:py-20">
           <div>
+            <PilotBadge className="mb-5" />
             <Eyebrow>Geschäftskonto</Eyebrow>
             <h1 className="display mt-5 text-3xl md:text-5xl">{data?.company || "Ihr Konto"}</h1>
             <p className="mt-3 text-sm text-muted-foreground">{data?.email}</p>

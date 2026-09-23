@@ -7,6 +7,7 @@ import {
   Eyebrow,
   Kicker,
   Panel,
+  PilotBadge,
   Section,
   SectionHeading,
 } from "@/components/site/primitives";
@@ -141,7 +142,8 @@ function ProjectIntelligencePage() {
         <div className="bg-grid mask-fade pointer-events-none absolute inset-0" aria-hidden />
         <Container className="relative grid gap-12 py-20 md:py-28 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
-            <Eyebrow>VZG Project Intelligence</Eyebrow>
+            <PilotBadge />
+            <Eyebrow className="mt-6">VZG Project Intelligence</Eyebrow>
             <h1 className="display mt-6 text-4xl sm:text-5xl md:text-6xl">
               Sie haben eine Geschäftsidee?
               <br />

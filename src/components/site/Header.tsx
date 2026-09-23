@@ -32,7 +32,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-lg">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
 
@@ -41,8 +41,8 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-sm px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground"
+              activeProps={{ className: "text-foreground bg-secondary/60" }}
             >
               {item.label}
             </Link>
