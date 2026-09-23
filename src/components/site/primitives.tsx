@@ -67,6 +67,21 @@ export function Kicker({ n, label }: { n: string; label: string }) {
   );
 }
 
+/** Marks the free pilot phase. Wording is deliberately factual, never promotional. */
+export function PilotBadge({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-mono text-[0.65rem] tracking-[0.14em] text-foreground/90 uppercase",
+        className,
+      )}
+    >
+      <span className="size-1.5 rounded-full bg-primary" aria-hidden />
+      Kostenlose Pilotversion
+    </span>
+  );
+}
+
 export type Status = "exists" | "building" | "planned";
 
 export function StatusBadge({ status }: { status: Status }) {

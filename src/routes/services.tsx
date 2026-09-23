@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Container, Eyebrow, Kicker, Section, SectionHeading } from "@/components/site/primitives";
+import { Container, Eyebrow, Kicker, PilotBadge, Section, SectionHeading } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
 import { services } from "@/content/services";
 import { pageHead } from "@/lib/seo";
@@ -27,9 +27,12 @@ const process = [
 function ServicesPage() {
   return (
     <>
-      <section className="border-b border-border">
-        <Container className="py-20 md:py-28">
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="bg-aurora pointer-events-none absolute inset-0" aria-hidden />
+        <Container className="relative py-20 md:py-28">
+          <PilotBadge />
           <SectionHeading
+            className="mt-6"
             eyebrow="Leistungen"
             title="Automatisierung, KI und individuelle Systeme für den operativen Betrieb."
             lede="Jede Leistung folgt derselben Logik: Ein konkretes Geschäftsproblem, eine passende Architektur, eine verantwortliche Person."

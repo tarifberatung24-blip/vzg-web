@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Container, Eyebrow, Kicker, Section, SectionHeading, StatusBadge } from "@/components/site/primitives";
+import { Container, Eyebrow, Kicker, PilotBadge, Section, SectionHeading, StatusBadge } from "@/components/site/primitives";
 import { SystemDiagram } from "@/components/site/SystemDiagram";
 import { CtaBand } from "@/components/site/CtaBand";
 import { services } from "@/content/services";
@@ -47,9 +47,11 @@ function Index() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="bg-grid mask-fade pointer-events-none absolute inset-0" aria-hidden />
+        <div className="bg-aurora pointer-events-none absolute inset-0" aria-hidden />
         <Container className="relative grid gap-16 pt-20 pb-24 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-28 lg:pb-32">
           <div className="reveal">
-            <Eyebrow>AI Systems · Automation · Digital Products</Eyebrow>
+            <PilotBadge />
+            <Eyebrow className="mt-6">AI Systems · Automation · Digital Products</Eyebrow>
             <h1 className="display mt-8 text-5xl sm:text-6xl lg:text-7xl">
               AI Systems.
               <br />
@@ -68,7 +70,7 @@ function Index() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/project-intelligence">Geschäftsidee analysieren</Link>
+                <Link to="/project-intelligence">Kostenlos testen</Link>
               </Button>
               <Button asChild size="lg" variant="ghost">
                 <Link to="/horizon">

@@ -7,6 +7,7 @@ import {
   Eyebrow,
   Kicker,
   Panel,
+  PilotBadge,
   Section,
   SectionHeading,
   StatusBadge,
@@ -68,8 +69,10 @@ function HorizonPage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="bg-grid mask-fade pointer-events-none absolute inset-0" aria-hidden />
+        <div className="bg-aurora pointer-events-none absolute inset-0" aria-hidden />
         <Container className="relative py-20 md:py-28">
-          <Eyebrow>Case Study · Flagship-Projekt</Eyebrow>
+          <PilotBadge />
+          <Eyebrow className="mt-6">Case Study · Flagship-Projekt</Eyebrow>
           <h1 className="display mt-6 text-5xl md:text-7xl">HORIZON by VZG</h1>
           <p className="lede mt-8 max-w-2xl">
             Das erste unter VZG CONSULT entwickelte Flagship-Produkt. HORIZON dient als primärer Nachweis

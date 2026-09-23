@@ -8,3 +8,79 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Repository facts
+
+- Stack: TanStack Start (file-based routing) + React 19 + Vite + Nitro, TypeScript
+  strict, Supabase (Lovable Cloud) for auth and data.
+- Package manager: `bun` is used by Lovable (`bun.lock`); `npm` also works for local
+  verification.
+- Database structure is managed **outside** this repository. `drizzle/schema.ts` is
+  intentionally blank and there are no `.sql` files. RLS policies, triggers, and column
+  defaults are not visible in the repo — do not assume they exist.
+- Only `profiles` and `analyses` exist today. Every other table (`organizations`,
+  `credit_transactions`, `customer_reports`, `internal_*`, …) must be created by a
+  migration.
+- Never use `user_metadata` for authorization decisions — it is client-writable.
+  Roles belong in `app_metadata` (server-set) or a service-role-only table.
+- `src/integrations/supabase/client.server.ts` holds the service-role client. It may only
+  be imported from `*.server.ts` modules — never from a route file or `*.functions.ts`,
+  which are shipped to the client bundle.
+- Billing fields on `analyses` (`billing_kind`, `payment_status`, `amount_cents`, `status`)
+  must stay server-only. Customer-visible output and internal VZG output live in separate
+  tables with separate authorization; hiding fields in the frontend is not sufficient.
+
+## Commands
+
+- `npm install` — install dependencies
+- `npx tsc --noEmit` — typecheck (currently clean)
+- `npm run build` — production build (currently succeeds)
+- `npm run lint` — **currently fails**: 371 Prettier formatting errors plus one
+  `prefer-const` in generated `previewAuthStorage.ts`. Run `npm run format` before
+  touching formatting, and coordinate the generated-file fix with Lovable.
+- `npm run dev` — local dev server
+
+## Before implementing Project Intelligence
+
+Read, in order:
+
+1. `docs/CURRENT_STATE_AUDIT.md` — verified state of what exists today
+2. `docs/PROJECT_INT_ARCHITECTURE.md` — locked architecture
+3. `docs/PROJECT_INT_DATA_MODEL.md` — proposed schema and migration order
+4. `docs/PROJECT_INT_SECURITY.md` — threat model and required mitigations
+5. `docs/PROJECT_INT_BUILD_PLAN.md` — the ordered task list (TASK-001 … TASK-022)
+
+Do not start implementation work before confirming the RLS policies on `profiles` and
+`analyses` inside the Supabase dashboard; several high-severity findings cannot be closed
+from code alone.
+
+## Task status
+
+- TASK-000 (audit + architecture lock) — **done**, see the five docs above.
+- TASK-001 (Guest Preview) — **implemented** on `feature/project-int-guest-preview`. Read
+  `docs/GUEST_PREVIEW.md` before changing anything under `src/lib/preview/`.
+
+TASK-001 rules that must not be broken:
+
+- The guest path must never reference the credit or billing domain. `src/lib/preview.boundaries.test.ts`
+  enforces this structurally and will fail if a reference is added.
+- No `.server` module may be imported statically from a route file or `*.functions.ts`.
+  `preview.functions.ts` uses dynamic imports inside handlers only.
+- `supabase/migrations/20260923100000_guest_preview.sql` is written but **not applied**.
+  Until it is, guest quota enforcement runs on the weaker `process_local` tier.
+- After changing client-reachable imports, re-check the built bundle for server-only
+  strings (see "Build-output verification" in `docs/GUEST_PREVIEW.md`).
+
+## Pilot visual refresh
+
+`feature/pilot-visual-refresh` restyles the public site for the free pilot launch. It changes
+presentation only — no product logic, no backend, no new dependencies.
+
+- The palette lives entirely in the semantic tokens in `src/styles.css`. Restyle by editing
+  tokens, not by hardcoding colours into components; the previous sweep left almost no
+  literal colours for exactly this reason.
+- Pilot messaging is one component, `PilotBadge` in `src/components/site/primitives.tsx`.
+  Copy it rather than re-declaring the badge markup.
+- Pilot wording stays factual. Do not add profit, guarantee, or outcome claims — the
+  Project Intelligence boundaries forbid them and the preview is not a full analysis.
+
