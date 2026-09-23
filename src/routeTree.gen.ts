@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AgbRouteImport } from './routes/agb'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as HorizonRouteImport } from './routes/horizon'
@@ -19,10 +21,15 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as ProjectIntelligenceRouteImport } from './routes/project-intelligence'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as AuthenticatedKontoRouteImport } from './routes/_authenticated/konto'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -33,6 +40,11 @@ const AboutRoute = AboutRouteImport.update({
 const AgbRoute = AgbRouteImport.update({
   id: '/agb',
   path: '/agb',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -70,11 +82,17 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedKontoRoute = AuthenticatedKontoRouteImport.update({
+  id: '/konto',
+  path: '/konto',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
@@ -82,11 +100,13 @@ export interface FileRoutesByFullPath {
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/konto': typeof AuthenticatedKontoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
@@ -94,12 +114,15 @@ export interface FileRoutesByTo {
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/konto': typeof AuthenticatedKontoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/datenschutz': typeof DatenschutzRoute
   '/horizon': typeof HorizonRoute
@@ -107,6 +130,7 @@ export interface FileRoutesById {
   '/project-intelligence': typeof ProjectIntelligenceRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
+  '/_authenticated/konto': typeof AuthenticatedKontoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/agb'
+    | '/auth'
     | '/contact'
     | '/datenschutz'
     | '/horizon'
@@ -121,11 +146,13 @@ export interface FileRouteTypes {
     | '/project-intelligence'
     | '/projects'
     | '/services'
+    | '/konto'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/agb'
+    | '/auth'
     | '/contact'
     | '/datenschutz'
     | '/horizon'
@@ -133,11 +160,14 @@ export interface FileRouteTypes {
     | '/project-intelligence'
     | '/projects'
     | '/services'
+    | '/konto'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/agb'
+    | '/auth'
     | '/contact'
     | '/datenschutz'
     | '/horizon'
@@ -145,12 +175,15 @@ export interface FileRouteTypes {
     | '/project-intelligence'
     | '/projects'
     | '/services'
+    | '/_authenticated/konto'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AgbRoute: typeof AgbRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   DatenschutzRoute: typeof DatenschutzRoute
   HorizonRoute: typeof HorizonRoute
@@ -169,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -181,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/agb'
       fullPath: '/agb'
       preLoaderRoute: typeof AgbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -232,13 +279,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/konto': {
+      id: '/_authenticated/konto'
+      path: '/konto'
+      fullPath: '/konto'
+      preLoaderRoute: typeof AuthenticatedKontoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedKontoRoute: typeof AuthenticatedKontoRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedKontoRoute: AuthenticatedKontoRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AgbRoute: AgbRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   DatenschutzRoute: DatenschutzRoute,
   HorizonRoute: HorizonRoute,
